@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Background and Card Display</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        transition: background-color 0.5s ease;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+    .card {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+    .card:hover {
+        background-color: #f9f9f9;
+    }
+
+    input[type="text"] {
+        width: 200px;
+        padding: 10px;
+        margin-right: 10px;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <input type="text" id="textInput" placeholder="Enter Data">
+    <button onclick="addData()">Add</button>
+    <button onclick="removeData()">Remove</button>
+    <button onclick="filterData()">Filter</button>
+    <button onclick="changeBackground()">Change Background</button>
+    <button onclick="addCard()">Add Card</button>
+    <div id="output"></div>
+</div>
+
+<script>
+    let data = [];
+    let cardCount = 0;
+
+    function addData() {
+        const inputValue = document.getElementById('textInput').value.trim();
+        if (inputValue !== '') {
+            data.push(inputValue);
+            displayData();
+        }
+    }
+
+    function removeData() {
+        const inputValue = document.getElementById('textInput').value.trim();
+        const index = data.indexOf(inputValue);
+        if (index !== -1) {
+            data.splice(index, 1);
+            displayData();
+        }
+    }
+
+    function filterData() {
+        const filteredData = data.filter((item, index) => data.indexOf(item) === index);
+        displayData(filteredData);
+    }
+
+    function changeBackground() {
+        const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+        document.body.style.backgroundColor = randomColor;
+    }
+
+    function addCard() {
+        cardCount++;
+        const newCard = `<div class="card" id="card${cardCount}">Card ${cardCount}</div>`;
+        document.getElementById('output').innerHTML += newCard;
+    }
+
+    function displayData(dataToDisplay = data) {
+        let outputHTML = '';
+        dataToDisplay.forEach(item => {
+            outputHTML += `<div class="card">${item}</div>`;
+        });
+        document.getElementById('output').innerHTML = outputHTML;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Card Display</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f4f4f4;
+        transition: background-color 0.5s ease;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+    }
+
+    .input-group input[type="text"] {
+        width: calc(70% - 10px);
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px 0 0 5px;
+    }
+
+    .input-group button {
+        width: calc(30% - 10px);
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+    }
+
+    .card {
+        margin-bottom: 10px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="input-group">
+        <input type="text" id="textInput" placeholder="Enter data">
+        <button onclick="addCard()">Add</button>
+        <button onclick="filterData()">Filter</button>
+        <button onclick="changeBackgroundColor()">Change Background</button>
+    </div>
+    <div id="cardContainer"></div>
+    <div id="filterCount"></div>
+</div>
+
+<script>
+    let cards = [];
+    let cardId = 0;
+
+    function addCard() {
+        const inputValue = document.getElementById('textInput').value.trim();
+        if (inputValue !== '') {
+            cards.push({ id: cardId++, value: inputValue });
+            displayCards();
+        }
+    }
+
+    function removeCard(id) {
+        cards = cards.filter(card => card.id !== id);
+        displayCards();
+    }
+
+    function filterData() {
+        const filterValue = document.getElementById('textInput').value.trim();
+        const filteredCards = cards.filter(card => card.value.includes(filterValue));
+        displayCards(filteredCards);
+        document.getElementById('filterCount').innerText = `Total Filtered Cards: ${filteredCards.length}`;
+    }
+
+    function changeBackgroundColor() {
+        const randomColor = "#" + Math.floor(Math.random()*16777215).toString(16);
+        document.body.style.backgroundColor = randomColor;
+    }
+
+    function displayCards(cardsToDisplay = cards) {
+        const cardContainer = document.getElementById('cardContainer');
+        cardContainer.innerHTML = '';
+        cardsToDisplay.forEach(card => {
+            const cardElement = document.createElement('div');
+            cardElement.classList.add('card');
+            cardElement.innerHTML = `
+                <p>ID: ${card.id}</p>
+                <p>${card.value}</p>
+                <button onclick="removeCard(${card.id})">Remove</button>
+            `;
+            cardContainer.appendChild(cardElement);
+        });
+    }
+</script>
+</body>
+</html>

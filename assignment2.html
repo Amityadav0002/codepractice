@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Background and Card Display</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        transition: background-color 0.5s;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .input-container {
+        display: flex;
+        margin-bottom: 10px;
+    }
+
+    input[type="text"] {
+        flex: 1;
+        padding: 10px;
+        margin-right: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+    .card {
+        margin-bottom: 10px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+    }
+
+    .card-id {
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>Dynamic Background and Card Display</h2>
+    <div class="input-container">
+        <input type="text" id="textInput" placeholder="Enter data">
+        <button class="btn" onclick="addData()">Add</button>
+        <button class="btn" onclick="removeData()">Remove</button>
+        <button class="btn" onclick="filterData()">Filter</button>
+        <button class="btn" onclick="changeBackground()">Change Background</button>
+    </div>
+    <div id="cardContainer"></div>
+</div>
+
+<script>
+    let data = [];
+
+    function addData() {
+        const inputValue = document.getElementById('textInput').value.trim();
+        if (inputValue !== '') {
+            data.push(inputValue);
+            displayData();
+        }
+    }
+
+    function removeData() {
+        const inputValue = document.getElementById('textInput').value.trim();
+        const index = data.indexOf(inputValue);
+        if (index !== -1) {
+            data.splice(index, 1);
+            displayData();
+        }
+    }
+
+    function filterData() {
+        alert(`Total number of records: ${data.length}`);
+    }
+
+    function changeBackground() {
+        const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+        document.body.style.backgroundColor = randomColor;
+    }
+
+    function displayData() {
+        document.getElementById('cardContainer').innerHTML = '';
+        data.forEach((item, index) => {
+            const cardId = index + 1;
+            const card = document.createElement('div');
+            card.classList.add('card');
+            card.innerHTML = `
+                <span class="card-id">Card ${cardId}</span>
+                <br>
+                ${item}
+            `;
+            document.getElementById('cardContainer').appendChild(card);
+        });
+    }
+</script>
+</body>
+</html>

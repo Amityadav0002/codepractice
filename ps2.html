@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            background-color: yellow;
+            padding: 10px;
+            border: 1px solid blue;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <div class="box">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet doloribus, nihil dolorum quas harum amet possimus fugit consectetur cupiditate, fugiat est at, quod numquam perferendis placeat sed. Cumque, cupiditate nesciunt?</p>
+  </div> 
+  <script>
+    $(document).ready(function(){
+        $('.box').click(function(){
+            $('.box').css('background-color','red');
+        })
+        $('.box').dblclick(function(){
+            $('.box').css('background-color','pink');
+        })
+        $('body').keypress(function(){
+            $('body').css('background-color','yellow');
+        })
+        $('body').keyup(function(){
+            $('body').css('background-color','blue');
+        })
+        $('body').mouseleave(function(){
+            $('body').css('background-color',purple);
+        })
+    })
+  </script>
+</body>
+</html>
